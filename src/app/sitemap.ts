@@ -5,9 +5,10 @@ import {getBlogPosts} from '@/lib/content';
 const baseUrl = 'https://studio.922-studio.com';
 
 function entry(path: string, lastModified: Date): MetadataRoute.Sitemap {
-  const languages = Object.fromEntries(
-    routing.locales.map(l => [l, `${baseUrl}/${l}${path}`])
-  );
+  const languages = {
+    ...Object.fromEntries(routing.locales.map(l => [l, `${baseUrl}/${l}${path}`])),
+    'x-default': `${baseUrl}/${routing.defaultLocale}${path}`,
+  };
   return routing.locales.map(locale => ({
     url: `${baseUrl}/${locale}${path}`,
     lastModified,
